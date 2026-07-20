@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavy Metal Concert Log & Rankings</title>
+    <!-- Incluindo html2canvas para exportação das seções como imagem -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Modern Clean Tech/Metal Hybrid Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #1f2833;
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 span.accent-red { color: #ff0055; }
+        h1 span.accent-blue { color: #00d2ff; }
+
+        p.subtitle {
+            color: #66fcf1;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: #ff0055;
+            margin-right: 10px;
+        }
+
+        .card {
+            background-color: #151922;
+            border: 1px solid #232936;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .grid-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.75rem;
+            color: #858b9c;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        input, textarea, select {
+            background-color: #0b0c10;
+            border: 1px solid #2d3545;
+            color: #ffffff;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00d2ff;
+            box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.15);
+        }
+
+        /* System Control Buttons */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-red { background-color: #ff0055; color: #ffffff; }
+        .btn-red:hover { background-color: #e0004b; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
+        
+        .btn-blue { background-color: #00d2ff; color: #0b0c10; }
+        .btn-blue:hover { background-color: #00b4db; box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+
+        .btn-dark { background-color: #232936; color: #ffffff; border: 1px solid #2d3545; }
+        .btn-dark:hover { background-color: #2e3646; }
+
+        /* Area wrappers para garantir captura de fotos limpas */
+        .capture-area {
+            background-color: #0b0c10;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        /* Rankings Layout */
+        .rankings-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 35px;
+        }
+
+        @media (max-width: 900px) {
+            .rankings-layout { grid-template-columns: 1fr; }
+        }
+
+        .rank-column-red h2::before { background: #ff0055; }
+        .rank-column-blue h2::before { background: #00d2ff; }
+
+        .rank-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin-top: -8px;
+        }
+
+        .rank-table th {
+            padding: 10px 15px;
+            color: #858b9c;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            border: none;
+        }
+
+        .rank-table td {
+            background-color: #151922;
+            padding: 12px 15px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            border-top: 1px solid #232936;
+            border-bottom: 1px solid #232936;
+        }
+
+        .rank-table td:first-child {
+            border-left: 1px solid #232936;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+            font-weight: 700;
+            width: 65px;
+        }
+
+        .rank-table td:last-child {
+            border-right: 1px solid #232936;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .rank-column-red .rank-number { color: #ff0055; }
+        .rank-column-blue .rank-number { color: #00d2ff; }
+
+        .rank-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 0;
+            color: #ffffff;
+            font-size: 0.95rem;
+        }
+
+        /* --- PADRONIZAÇÃO DO HISTÓRICO (CAMPOS ALINHADOS) --- */
+        .history-row {
+            background-color: #151922;
+            border: 1px solid #232936;
+            border-left: 4px solid #ff0055;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .history-main-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .history-cell {
+            display: flex;
+            flex-direction: column;
+            width: 130px; 
+        }
+
+        .history-cell.wide {
+            width: 190px;
+        }
+
+        .cell-label {
+            font-size: 0.65rem;
+            color: #858b9c;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .cell-value {
+            font-size: 0.9rem;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-row-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .action-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #858b9c;
+            transition: color 0.2s;
+        }
+        .action-icon-btn.edit:hover { color: #00d2ff; }
+        .action-icon-btn.delete:hover { color: #ff0055; }
+
+        .notes-row {
+            width: 100%;
+            font-size: 0.8rem;
+            color: #a5a9b4;
+            font-style: italic;
+            border-top: 1px dashed #232936;
+            padding-top: 6px;
+            margin-top: 4px;
+        }
+        
+        .empty-state {
+            color: #555c6b;
+            font-style: italic;
+            padding: 40px;
+            text-align: center;
+            background-color: #10141c;
+            border: 1px dashed #232936;
+            border-radius: 6px;
+        }
+
+        .venue-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .venue-item {
+            background-color: #0b0c10;
+            border: 1px solid #232936;
+            padding: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .venue-item-info { display: flex; flex-direction: column; }
+        .venue-item-name { font-weight: bold; color: #ffffff; font-size: 0.9rem; }
+        .venue-item-address { color: #858b9c; font-size: 0.75rem; }
+        .btn-mini-delete { background: none; border: none; color: #555c6b; cursor: pointer; font-weight: bold; }
+        .btn-mini-delete:hover { color: #ff0055; }
+
+        /* Filter Controls */
+        .filter-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            background-color: #10141c;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #1a212d;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 2px;
+            width: max-content;
+        }
+        .badge-bought { background-color: #2e7d32; color: #ffffff; }
+        .badge-missing { background-color: #c62828; color: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Live <span class="accent-red">Concert</span> Log <span class="accent-blue">&</span> Rankings</h1>
+            <p class="subtitle">The Official Heavy Metal Logbook</p>
+            
+            <!-- CENTRAL DE BOTÕES DE CONTROLE E EXPORTAÇÃO NO TOPO -->
+            <div class="btn-container" style="justify-content: center; margin-top: 25px;">
+                <button class="btn btn-dark" onclick="exportBackup()">💾 Export / Save Data</button>
+                <button class="btn btn-dark" onclick="document.getElementById('importFile').click()">📂 Restore / Load Data</button>
+                <button class="btn btn-blue" onclick="exportSectionAsImage('rankingsCaptureArea', 'heavy_metal_rankings')">📸 Export Rankings Image</button>
+                <button class="btn btn-red" onclick="exportSectionAsImage('agendaCaptureArea', 'concert_history_agenda')">📸 Export Agenda Image</button>
+                <input type="file" id="importFile" style="display:none" onchange="importBackup(event)" accept=".json">
+            </div>
+        </header>
+
+        <!-- VENUES MANAGEMENT CARD -->
+        <section class="card" style="border-top: 4px solid #00d2ff;">
+            <h2 style="color: #00d2ff;">Manage Venues / Concert Halls</h2>
+            <form id="venueForm">
+                <div class="grid-fields">
+                    <div class="form-group">
+                        <label for="newVenueName">Venue Name</label>
+                        <input type="text" id="newVenueName" required placeholder="e.g., Wacken Arena">
+                    </div>
+                    <div class="form-group full-width" style="grid-column: span 2;">
+                        <label for="newVenueAddress">Full Address</label>
+                        <input type="text" id="newVenueAddress" required placeholder="e.g., Street Name, 123 - City, Country">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-blue">Register Venue</button>
+                </div>
+            </form>
+            <div class="venue-list" id="venuesContainer"></div>
+        </section>
+
+        <!-- GOOGLE WALLET FORM COMPONENT -->
+        <section class="card">
+            <h2 id="formTitle">Log a New Concert</h2>
+            <form id="concertForm">
+                <input type="hidden" id="editItemId" value="">
+                <div class="grid-fields">
+                    <div class="form-group">
+                        <label for="eventName">Event / Headliner</label>
+                        <input type="text" id="eventName" required placeholder="e.g., Metallica">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venueSelect">Select Registered Venue</label>
+                        <select id="venueSelect" required>
+                            <option value="">-- Choose a Venue --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venueAddressDisplay">Venue Address (Auto-filled)</label>
+                        <input type="text" id="venueAddressDisplay" readonly placeholder="Select venue to fetch address" style="background-color: #10141c; color:#858b9c; border-color: #1a212d;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateTime">Date & Time</label>
+                        <input type="datetime-local" id="dateTime" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketStatus">Ticket Status</label>
+                        <select id="ticketStatus" required>
+                            <option value="Bought">Ticket Already Bought</option>
+                            <option value="Need to Buy">Still Need to Buy</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchasePlatform">Purchase Platform</label>
+                        <input type="text" id="purchasePlatform" placeholder="e.g., Ticketmaster">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketType">Ticket Type</label>
+                        <select id="ticketType">
+                            <option value="Regular (Full Price)">Regular (Full Price)</option>
+                            <option value="Half Price (Student/Elderly)">Half Price (Student/Elderly)</option>
+                            <option value="Solidary Ticket (Food Donation)">Solidary Ticket (Food Donation)</option>
+                            <option value="VIP / Backstage Pass">VIP / Backstage Pass</option>
+                            <option value="Complimentary / Invitation">Complimentary / Invitation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector">Sector / Zone</label>
+                        <input type="text" id="sector" placeholder="e.g., Front Pit">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rowNum">Row</label>
+                        <input type="text" id="rowNum" placeholder="e.g., GA">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="seatNum">Seat</label>
+                        <input type="text" id="seatNum" placeholder="e.g., Standing">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketHolder">Ticket Holder</label>
+                        <input type="text" id="ticketHolder" placeholder="Your Name">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="notes">Concert Notes & Highlights</label>
+                        <textarea id="notes" rows="2" placeholder="Setlist highlights, experience..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button type="submit" id="submitBtn" class="btn btn-red">Save to Concert History</button>
+                    <button type="button" id="cancelEditBtn" class="btn btn-dark" style="display: none;" onclick="resetConcertForm()">Cancel Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- TOP 20 RANKINGS (Rafael e Mayara) -->
+        <div class="capture-area" id="rankingsCaptureArea">
+            <div class="rankings-layout">
+                <div class="rank-column-red">
+                    <h2>Rafael Top 20</h2>
+                    <table class="rank-table">
+                        <thead><tr><th>Rank</th><th>Concert / Band / Year</th></tr></thead>
+                        <tbody id="myRankBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="rank-column-blue">
+                    <h2>Mayara Top 20</h2>
+                    <table class="rank-table">
+                        <thead><tr><th>Rank</th><th>Concert / Band / Year</th></tr></thead>
+                        <tbody id="herRankBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORIC LOGS LIST, FILTERS & AGENDA -->
+        <div class="capture-area" id="agendaCaptureArea">
+            <section class="history-section">
+                <h2>Concert History & Agenda</h2>
+                
+                <div class="filter-bar">
+                    <div class="form-group">
+                        <label>Timeline Schedule</label>
+                        <select id="filterTimeline" onchange="renderHistory()">
+                            <option value="all">All Events</option>
+                            <option value="past">Past Events (Realizados)</option>
+                            <option value="future">Upcoming Events (Irão Acontecer)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Filter by Band/Text</label>
+                        <input type="text" id="filterText" placeholder="Search..." oninput="renderHistory()">
+                    </div>
+                    <div class="form-group">
+                        <label>Filter by Venue</label>
+                        <select id="filterVenue" onchange="renderHistory()">
+                            <option value="">All Venues</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Filter by Ticket Type</label>
+                        <select id="filterTicket" onchange="renderHistory()">
+                            <option value="">All Tickets</option>
+                            <option value="Regular (Full Price)">Regular (Full Price)</option>
+                            <option value="Half Price (Student/Elderly)">Half Price (Student/Elderly)</option>
+                            <option value="Solidary Ticket (Food Donation)">Solidary Ticket (Food Donation)</option>
+                            <option value="VIP / Backstage Pass">VIP / Backstage Pass</option>
+                            <option value="Complimentary / Invitation">Complimentary / Invitation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="historyFeed"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- INJECTED DATA HOOKS FOR STANDALONE DOWNLOAD PORTABILITY -->
+    <script id="embeddedData" type="application/json">{"history":[],"venues":[],"myTop":[],"herTop":[]}</script>
+
+    <script>
+        // --- DATA BACKBONE ENGINE ---
+        let venuesList = [];
+        let concertHistory = [];
+        let myTop20 = Array(20).fill({show: ""});
+        let herTop20 = Array(20).fill({show: ""});
+
+        function loadAllData() {
+            try {
+                const embeddedRaw = document.getElementById('embeddedData').textContent;
+                const embedded = JSON.parse(embeddedRaw);
+                
+                if (embedded && embedded.history && embedded.history.length > 0) {
+                    concertHistory = embedded.history;
+                    venuesList = embedded.venues || [];
+                    myTop20 = embedded.myTop || Array(20).fill({show: ""});
+                    herTop20 = embedded.herTop || Array(20).fill({show: ""});
+                    saveToLocalStorage();
+                    return;
+                }
+            } catch(e) { console.log("Standalone injection empty."); }
+
+            venuesList = JSON.parse(localStorage.getItem('metal_venues')) || [];
+            concertHistory = JSON.parse(localStorage.getItem('metal_concert_history')) || [];
+            myTop20 = JSON.parse(localStorage.getItem('metal_my_top20_clean')) || Array(20).fill({show: ""});
+            herTop20 = JSON.parse(localStorage.getItem('metal_her_top20_clean')) || Array(20).fill({show: ""});
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('metal_venues', JSON.stringify(venuesList));
+            localStorage.setItem('metal_concert_history', JSON.stringify(concertHistory));
+            localStorage.setItem('metal_my_top20_clean', JSON.stringify(myTop20));
+            localStorage.setItem('metal_her_top20_clean', JSON.stringify(herTop20));
+        }
+
+        // --- VENUE CONTROLLERS ---
+        document.getElementById('venueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('newVenueName').value.trim();
+            const address = document.getElementById('newVenueAddress').value.trim();
+            venuesList.push({ id: 'v_' + Date.now(), name, address });
+            saveToLocalStorage();
+            this.reset();
+            renderVenues();
+        });
+
+        window.deleteVenue = function(id) {
+            if(confirm('Delete venue?')) {
+                venuesList = venuesList.filter(v => v.id !== id);
+                saveToLocalStorage();
+                renderVenues();
+            }
+        }
+
+        function renderVenues() {
+            const container = document.getElementById('venuesContainer');
+            const selector = document.getElementById('venueSelect');
+            const filterVenue = document.getElementById('filterVenue');
+            
+            container.innerHTML = '';
+            selector.innerHTML = '<option value="">-- Choose a Venue --</option>';
+            filterVenue.innerHTML = '<option value="">All Venues</option>';
+
+            venuesList.forEach(v => {
+                const div = document.createElement('div');
+                div.className = 'venue-item';
+                div.innerHTML = `<div class="venue-item-info"><span class="venue-item-name">${escapeHtml(v.name)}</span><span class="venue-item-address">${escapeHtml(v.address)}</span></div><button class="btn-mini-delete" onclick="deleteVenue('${v.id}')">✕</button>`;
+                container.appendChild(div);
+
+                const opt = document.createElement('option');
+                opt.value = v.name; opt.dataset.address = v.address; opt.textContent = v.name;
+                selector.appendChild(opt.cloneNode(true));
+                filterVenue.appendChild(opt);
+            });
+        }
+
+        document.getElementById('venueSelect').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            document.getElementById('venueAddressDisplay').value = (selectedOption && selectedOption.dataset.address) ? selectedOption.dataset.address : '';
+        });
+
+        // --- RANKINGS CONTROLLERS ---
+        function initRankTables() {
+            renderRankTable('myRankBody', myTop20, 'my');
+            renderRankTable('herRankBody', herTop20, 'her');
+        }
+
+        function renderRankTable(tableId, dataArray, userKey) {
+            const tbody = document.getElementById(tableId); tbody.innerHTML = '';
+            if(dataArray.length < 20) { while(dataArray.length < 20) dataArray.push({show: ""}); }
+            
+            dataArray.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td class="rank-number">${index + 1}</td><td><input type="text" class="rank-input" placeholder="..." value="${escapeHtml(item.show)}" data-index="${index}" data-user="${userKey}"></td>`;
+                tbody.appendChild(tr);
+            });
+            tbody.querySelectorAll('input').forEach(input => input.addEventListener('change', handleRankChange));
+        }
+
+        function handleRankChange(e) {
+            const index = e.target.dataset.index;
+            const user = e.target.dataset.user;
+            if (user === 'my') {
+                myTop20[index] = { show: e.target.value };
+            } else {
+                herTop20[index] = { show: e.target.value };
+            }
+            saveToLocalStorage();
+        }
+
+        // --- SISTEMA GENÉRICO DE EXPORTAÇÃO DE IMAGEM (html2canvas) ---
+        window.exportSectionAsImage = function(elementId, filenamePrefix) {
+            const target = document.getElementById(elementId);
+            
+            // Oculta temporariamente ações de botões para tirar a foto perfeitamente limpa se for a agenda
+            const actions = target.querySelectorAll('.history-row-actions, .filter-bar');
+            actions.forEach(el => el.style.opacity = '0');
+
+            html2canvas(target, {
+                backgroundColor: "#0b0c10",
+                logging: false,
+                useCORS: true,
+                scale: 2 
+            }).then(canvas => {
+                actions.forEach(el => el.style.opacity = '1'); // Restaura a interface visual
+                
+                const image = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.download = `${filenamePrefix}_${Date.now()}.png`;
+                link.href = image;
+                link.click();
+            }).catch(err => {
+                actions.forEach(el => el.style.opacity = '1');
+                console.error("Erro ao gerar imagem: ", err);
+                alert("Could not generate image snapshot.");
+            });
+        };
+
+        // --- CONCERT LOG SYSTEMS & EDITING ---
+        document.getElementById('concertForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editItemId').value;
+
+            const concertData = {
+                id: editId ? editId : 'id_' + Date.now(),
+                eventName: document.getElementById('eventName').value,
+                venue: document.getElementById('venueSelect').value,
+                venueAddress: document.getElementById('venueAddressDisplay').value,
+                dateTime: document.getElementById('dateTime').value,
+                ticketStatus: document.getElementById('ticketStatus').value,
+                purchasePlatform: document.getElementById('purchasePlatform').value,
+                ticketType: document.getElementById('ticketType').value,
+                sector: document.getElementById('sector').value,
+                rowNum: document.getElementById('rowNum').value,
+                seatNum: document.getElementById('seatNum').value,
+                ticketHolder: document.getElementById('ticketHolder').value,
+                notes: document.getElementById('notes').value
+            };
+
+            if (editId) {
+                const index = concertHistory.findIndex(item => item.id === editId);
+                concertHistory[index] = concertData;
+            } else {
+                concertHistory.push(concertData);
+            }
+
+            saveToLocalStorage();
+            resetConcertForm();
+            renderHistory();
+        });
+
+        window.startEditConcert = function(id) {
+            const item = concertHistory.find(c => c.id === id);
+            if (!item) return;
+
+            document.getElementById('formTitle').textContent = "Editing Concert entry";
+            document.getElementById('submitBtn').textContent = "Apply Changes";
+            document.getElementById('cancelEditBtn').style.display = "inline-block";
+            document.getElementById('editItemId').value = item.id;
+
+            document.getElementById('eventName').value = item.eventName;
+            document.getElementById('venueSelect').value = item.venue;
+            document.getElementById('venueAddressDisplay').value = item.venueAddress;
+            document.getElementById('dateTime').value = item.dateTime;
+            document.getElementById('ticketStatus').value = item.ticketStatus || 'Bought';
+            document.getElementById('purchasePlatform').value = item.purchasePlatform || '';
+            document.getElementById('ticketType').value = item.ticketType || 'Regular (Full Price)';
+            document.getElementById('sector').value = item.sector || '';
+            document.getElementById('rowNum').value = item.rowNum || '';
+            document.getElementById('seatNum').value = item.seatNum || '';
+            document.getElementById('ticketHolder').value = item.ticketHolder || '';
+            document.getElementById('notes').value = item.notes || '';
+            
+            window.scrollTo({ top: document.getElementById('concertForm').offsetTop - 20, behavior: 'smooth' });
+        };
+
+        window.resetConcertForm = function() {
+            document.getElementById('concertForm').reset();
+            document.getElementById('editItemId').value = '';
+            document.getElementById('formTitle').textContent = "Log a New Concert";
+            document.getElementById('submitBtn').textContent = "Save to Concert History";
+            document.getElementById('cancelEditBtn').style.display = "none";
+            document.getElementById('venueAddressDisplay').value = '';
+        };
+
+        window.deleteConcert = function(id) {
+            if(confirm('Delete entry?')) {
+                concertHistory = concertHistory.filter(item => item.id !== id);
+                saveToLocalStorage();
+                renderHistory();
+            }
+        }
+
+        function renderHistory() {
+            const feed = document.getElementById('historyFeed');
+            const fText = document.getElementById('filterText').value.toLowerCase();
+            const fVenue = document.getElementById('filterVenue').value;
+            const fTicket = document.getElementById('filterTicket').value;
+            const fTimeline = document.getElementById('filterTimeline').value;
+
+            feed.innerHTML = '';
+            const now = new Date();
+
+            let filtered = concertHistory.filter(item => {
+                const matchText = item.eventName.toLowerCase().includes(fText) || (item.notes && item.notes.toLowerCase().includes(fText));
+                const matchVenue = fVenue === "" || item.venue === fVenue;
+                const matchTicket = fTicket === "" || item.ticketType === fTicket;
+                
+                const eventDate = new Date(item.dateTime);
+                let matchTimeline = true;
+                if (fTimeline === 'past') {
+                    matchTimeline = eventDate < now;
+                } else if (fTimeline === 'future') {
+                    matchTimeline = eventDate >= now;
+                }
+
+                return matchText && matchVenue && matchTicket && matchTimeline;
+            });
+
+            if (filtered.length === 0) {
+                feed.innerHTML = '<div class="empty-state">No matching recorded concerts found.</div>';
+                return;
+            }
+
+            // CORREÇÃO DA ORDENAÇÃO: Datas mais próximas (futuras próximas ou passadas recentes) em cima, mais distantes embaixo
+            filtered.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime)).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-row';
+                
+                const dateObj = new Date(item.dateTime);
+                const displayDate = !isNaN(dateObj) ? dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : item.dateTime;
+
+                const tStatus = item.ticketStatus || 'Bought';
+                const badgeClass = tStatus === 'Bought' ? 'badge-bought' : 'badge-missing';
+                const badgeText = tStatus === 'Bought' ? '✓ Bought' : '⚠️ Need to buy';
+
+                div.innerHTML = `
+                    <div class="history-main-info">
+                        <div class="history-cell wide">
+                            <span class="cell-label">Concert / Headliner</span>
+                            <span class="cell-value" style="font-weight:700; color:#ff0055;">${escapeHtml(item.eventName)}</span>
+                            <span class="badge ${badgeClass}">${badgeText}</span>
+                        </div>
+                        <div class="history-cell">
+                            <span class="cell-label">Date & Time</span>
+                            <span class="cell-value">${displayDate}</span>
+                        </div>
+                        <div class="history-cell">
+                            <span class="cell-label">Venue</span>
+                            <span class="cell-value" title="${escapeHtml(item.venueAddress)}">${escapeHtml(item.venue)}</span>
+                        </div>
+                        <div class="history-cell">
+                            <span class="cell-label">Ticket Type</span>
+                            <span class="cell-value" style="color: #ff9d00; font-weight:600;">${escapeHtml(item.ticketType || 'Regular')}</span>
+                        </div>
+                        <div class="history-cell">
+                            <span class="cell-label">Sector / Seating</span>
+                            <span class="cell-value">${escapeHtml(item.sector || 'N/A')}</span>
+                            <span class="cell-value" style="font-size:0.75rem; color:#858b9c;">R: ${escapeHtml(item.rowNum || '—')} | S: ${escapeHtml(item.seatNum || '—')}</span>
+                        </div>
+                        <div class="history-cell">
+                            <span class="cell-label">Holder / Platform</span>
+                            <span class="cell-value">${escapeHtml(item.ticketHolder || '—')}</span>
+                            <span class="cell-value" style="font-size:0.75rem; color:#66fcf1;">${escapeHtml(item.purchasePlatform || '—')}</span>
+                        </div>
+                    </div>
+                    <div class="history-row-actions">
+                        <button class="action-icon-btn edit" onclick="startEditConcert('${item.id}')">✏️ Edit</button>
+                        <button class="action-icon-btn delete" onclick="deleteConcert('${item.id}')">✕</button>
+                    </div>
+                    ${item.notes ? `<div class="notes-row"><span class="cell-label">Notes: </span>"${escapeHtml(item.notes)}"</div>` : ''}
+                `;
+                feed.appendChild(div);
+            });
+        }
+
+        // --- PORTABILITY & FILE BACKUPS ---
+        window.exportBackup = function() {
+            const packageData = { history: concertHistory, venues: venuesList, myTop: myTop20, herTop: herTop20 };
+            const blob = new Blob([JSON.stringify(packageData)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `metal_concert_log_backup_${Date.now()}.json`;
+            a.click();
+        };
+
+        window.importBackup = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const parsed = JSON.parse(evt.target.result);
+                    if (parsed) {
+                        concertHistory = parsed.history || [];
+                        venuesList = parsed.venues || [];
+                        myTop20 = parsed.myTop || Array(20).fill({show: ""});
+                        herTop20 = parsed.herTop || Array(20).fill({show: ""});
+                        saveToLocalStorage();
+                        renderVenues();
+                        initRankTables();
+                        renderHistory();
+                        alert("Backup Restored Successfully!");
+                    }
+                } catch(err) { alert("Invalid backup file."); }
+            };
+            reader.readAsText(file);
+        };
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // --- APP INITIALIZATION ---
+        loadAllData();
+        renderVenues();
+        initRankTables();
+        renderHistory();
+    </script>
+</body>
+</html>
