@@ -1,6 +1,6 @@
 ## 🎸 Live Concert Log & Rankings
 
-> An interactive web application designed to log, manage, and rank the live concerts, tours, and musical performances.<br>
+> An interactive web application designed to log, manage, and rank the live concerts and musical performances.<br>
 > **Live Concert Log & Rankings** was born out of a passion for live music. The goal is to provide a centralized space to keep a detailed journal of every show attended, allowing you to create custom rankings based on performance, setlist, energy, and overall atmosphere.
 
 ---
