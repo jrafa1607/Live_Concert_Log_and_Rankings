@@ -9,7 +9,7 @@
 
 * 📝 **Detailed Logging:** Record essential details for each show (artist, venue, date, companions, notes, etc.).
 * 🏆 **Ranking System:** Evaluate and order your musical experiences from the most unforgettable down the line.
-* 🌐 **100% Web & Responsive:** A lightweight interface accessible directly through your browser, optimized for various screen sizes.
+* 🌐 **100% Web & Responsive:** A lightweight interface accessible directly through your browser.
 * ⚡ **Fast Static Hosting:** Powered seamlessly by **GitHub Pages**.
 
 ---
