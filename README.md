@@ -14,6 +14,14 @@
 
 ---
 
+### 🚀 Live Demo
+
+You can access the live version of the application directly in your browser:
+
+👉 **[Live Concert Log & Rankings](https://jrafa1607.github.io/Live_Concert_Log_and_Rankings/)**
+
+---
+
 ### 🛠️ Built With
 
 This project is built using core web technologies:
@@ -24,14 +32,13 @@ This project is built using core web technologies:
 
 ---
 
-
 ## 💡 How to Run Locally
 
 If you want to run or test the project locally on your machine, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git
+   git clone [https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git](https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git)
    ```
 
 2. **Navigate into the project directory:**
