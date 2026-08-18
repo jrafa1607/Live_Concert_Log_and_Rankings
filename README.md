@@ -32,7 +32,7 @@ This project is built using core web technologies:
 
 ---
 
-## 💡 How to Run Locally
+### 💡 How to Run Locally
 
 If you want to run or test the project locally on your machine, follow these steps:
 
