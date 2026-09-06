@@ -30,7 +30,7 @@ If you want to run or test the project locally on your machine, follow these ste
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git](https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git)
+   git clone https://github.com/jrafa1607/Live_Concert_Log_and_Rankings.git
    ```
 
 2. **Navigate into the project directory:**
