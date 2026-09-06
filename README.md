@@ -1,12 +1,14 @@
-## 🎸 Live Concert Log & Rankings
+### 🎸 Live Concert Log & Rankings
+An interactive web application designed to log, manage, and rank the live concerts and musical performances.
+**Live Concert Log & Rankings** was born out of a passion for live music.
+The goal is to provide a centralized space to keep a detailed journal of every show attended, allowing you to create custom rankings based on performance, setlist, energy, and overall atmosphere.
+<br>
 
-> An interactive web application designed to log, manage, and rank the live concerts and musical performances.<br>
-> **Live Concert Log & Rankings** was born out of a passion for live music. The goal is to provide a centralized space to keep a detailed journal of every show attended, allowing you to create custom rankings based on performance, setlist, energy, and overall atmosphere.
+👉 **[Live Concert Log & Rankings](https://jrafa1607.github.io/Live_Concert_Log_and_Rankings/)**
 
 ---
 
-### ✨ Features
-
+#### ✨ Features
 * 📝 **Detailed Logging:** Record essential details for each show (artist, venue, date, companions, notes, etc.).
 * 🏆 **Ranking System:** Evaluate and order your musical experiences from the most unforgettable down the line.
 * 🌐 **100% Web & Responsive:** A lightweight interface accessible directly through your browser.
@@ -14,25 +16,15 @@
 
 ---
 
-### 🚀 Live Demo
-
-You can access the live version of the application directly in your browser:
-
-👉 **[Live Concert Log & Rankings](https://jrafa1607.github.io/Live_Concert_Log_and_Rankings/)**
-
----
-
-### 🛠️ Built With
-
+#### 🛠️ Built With
 This project is built using core web technologies:
-
 * **HTML5** — Semantic page structure and content markup.
 * **CSS3** — Styling, responsive design, and visual identity.
 * **JavaScript** — Interactive application logic, DOM manipulation, and data handling.
 
 ---
 
-### 💡 How to Run Locally
+#### 💡 How to Run Locally
 
 If you want to run or test the project locally on your machine, follow these steps:
 
